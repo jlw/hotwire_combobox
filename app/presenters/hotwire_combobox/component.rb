@@ -47,6 +47,12 @@ class HotwireCombobox::Component
   end
 
 
+  def input_wrapper_attrs
+    {
+      class: css_classes("input_wrapper")
+    }
+  end
+
   def input_attrs
     nested_attrs = %i[ data aria ]
 

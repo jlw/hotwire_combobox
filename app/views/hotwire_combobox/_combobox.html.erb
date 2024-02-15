@@ -1,6 +1,6 @@
 <%= tag.fieldset **component.fieldset_attrs do %>
   <%= render "hotwire_combobox/combobox/hidden_field", component: component %>
-  <%= tag.div class: 'hw-combobox__input_wrapper' do %>
+  <%= tag.div **component.input_wrapper_attrs do %>
     <%= render "hotwire_combobox/combobox/input", component: component %>
     <%= render "hotwire_combobox/combobox/paginated_listbox", component: component %>
     <%= render "hotwire_combobox/combobox/dialog", component: component %>
