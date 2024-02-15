@@ -8,6 +8,10 @@ Combobox.Selection = Base => class extends Base {
   }
 
   _connectSelection() {
+    if (this.isMultiple()) {
+      return this._connectMultipleSelection()
+    }
+
     if (this.hasPrefilledDisplayValue) {
       this._actingCombobox.value = this.prefilledDisplayValue
     }
@@ -27,6 +31,10 @@ Combobox.Selection = Base => class extends Base {
 
   _commitSelection(option, { selected }) {
     this._markSelected(option, { selected })
+
+    if (this.isMultiple()) {
+      return this._commitMultipleSelection(option, { selected })
+    }
 
     if (selected) {
       this.hiddenFieldTarget.value = option.dataset.value
@@ -50,17 +58,29 @@ Combobox.Selection = Base => class extends Base {
   }
 
   _selectNew(query) {
+    if (this.isMultiple()) {
+      return this._selectNewForMultiple(query)
+    }
+
     this._resetOptions()
     this.hiddenFieldTarget.value = query
     this.hiddenFieldTarget.name = this.nameWhenNewValue
   }
 
   _selectIndex(index) {
+    if (this.isMultiple()) {
+      return
+    }
+
     const option = wrapAroundAccess(this._visibleOptionElements, index)
     this._select(option, { force: true })
   }
 
   _preselectOption() {
+    if (this.isMultiple()) {
+      return this._preselectMultipleOption()
+    }
+
     if (this._hasValueButNoSelection && this._allOptions.length < 100) {
       const option = this._allOptions.find(option => {
         return option.dataset.value === this.hiddenFieldTarget.value

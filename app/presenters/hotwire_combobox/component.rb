@@ -1,5 +1,5 @@
 class HotwireCombobox::Component
-  attr_reader :async_src, :options, :dialog_label
+  attr_reader :async_src, :options, :dialog_label, :multiple
 
   def initialize \
       view, name,
@@ -12,15 +12,16 @@ class HotwireCombobox::Component
       id:               nil,
       input:            {},
       mobile_at:        "640px",
+      multiple:         false,
       name_when_new:    nil,
       open:             false,
       options:          [],
       value:            nil,
       **rest
     @view, @autocomplete, @id, @name, @value, @form, @async_src,
-    @name_when_new, @open, @data, @mobile_at, @options, @dialog_label =
+    @name_when_new, @open, @data, @mobile_at, @multiple, @options, @dialog_label =
       view, autocomplete, id, name, value, form, async_src,
-      name_when_new, open, data, mobile_at, options, dialog_label
+      name_when_new, open, data, mobile_at, multiple, options, dialog_label
 
     @custom_classes = rest.select { |key, _| key.to_s.end_with?('_class') }.with_indifferent_access
     rest.reject! { |key, _| key.to_s.end_with?('_class') }
@@ -57,6 +58,14 @@ class HotwireCombobox::Component
       data: input_data,
       aria: input_aria
     }.merge combobox_attrs.except(*nested_attrs)
+  end
+
+
+  def multiple_selections_attrs
+    {
+      class: 'hw-combobox__multiple_selections',
+      data: { hw_combobox_target: "multipleSelections" }
+    }
   end
 
 
@@ -162,6 +171,8 @@ class HotwireCombobox::Component
         hw_combobox_original_name_value: hidden_field_name,
         hw_combobox_autocomplete_value: autocomplete,
         hw_combobox_small_viewport_max_width_value: mobile_at,
+        hw_combobox_is_multiple_value: multiple,
+        hw_combobox_multiple_selections_value: multiple_selections&.to_json,
         hw_combobox_async_src_value: async_src,
         hw_combobox_prefilled_display_value: prefilled_display,
         hw_combobox_filterable_attribute_value: "data-filterable-as",
@@ -170,10 +181,20 @@ class HotwireCombobox::Component
     end
 
     def prefilled_display
+      return if multiple
+
       if async_src && associated_object
         associated_object.to_combobox_display
       elsif hidden_field_value
         options.find { |option| option.value == hidden_field_value }&.content
+      end
+    end
+
+    def multiple_selections
+      return unless multiple
+
+      Array(value).each_with_object({}) do |loop_value, hash|
+        hash[loop_value] = options.find { |option| option.value == loop_value }&.content
       end
     end
 
@@ -311,7 +332,7 @@ class HotwireCombobox::Component
     end
 
     def css_base_class(element)
-      return "hw-combobox" if element == "fieldset"
+      return "hw-combobox#{" hw-combobox--multiple" if multiple}" if element == "fieldset"
 
       "hw-combobox__#{element}"
     end

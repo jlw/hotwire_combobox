@@ -9,6 +9,7 @@ const concerns = [
   Combobox.Autocomplete,
   Combobox.Dialog,
   Combobox.Filtering,
+  Combobox.MultipleSelection,
   Combobox.Navigation,
   Combobox.Options,
   Combobox.Selection,
@@ -31,6 +32,7 @@ export default class HwComboboxController extends Concerns(...concerns) {
     "handle",
     "hiddenField",
     "listbox",
+    "multipleSelections",
     "paginationFrame"
   ]
 
@@ -40,6 +42,8 @@ export default class HwComboboxController extends Concerns(...concerns) {
     autocomplete: String,
     expanded: Boolean,
     filterableAttribute: String,
+    isMultiple: Boolean,
+    multipleSelections: Object,
     nameWhenNew: String,
     originalName: String,
     prefilledDisplay: String,
@@ -67,6 +71,10 @@ export default class HwComboboxController extends Concerns(...concerns) {
     } else {
       this._collapse()
     }
+  }
+
+  isMultiple() {
+    return this.hasIsMultipleValue && this.isMultipleValue
   }
 
   paginationFrameTargetConnected() {

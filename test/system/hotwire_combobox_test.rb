@@ -381,6 +381,17 @@ class HotwireComboboxTest < ApplicationSystemTestCase
     assert_field "state-field", with: "Michigan"
   end
 
+  test "allowing multiple selections" do
+    visit multiple_path
+
+    assert_selector "div[id='FL'] span", text: 'Florida'
+
+    open_combobox
+
+    assert_no_selector "li[role=option]", text: "Florida"
+    assert_no_selector "li[role=option]", text: "Missouri"
+  end
+
   test "dialog" do
     on_small_screen do
       visit html_options_path

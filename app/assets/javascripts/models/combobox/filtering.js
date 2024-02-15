@@ -42,10 +42,12 @@ Combobox.Filtering = Base => class extends Base {
     const isDeleting = event.inputType === "deleteContentBackward"
 
     if (this._isValidNewOption(query, { ignoreAutocomplete: isDeleting })) {
-      this._selectNew(query)
+      if (!this.isMultiple()) {
+        this._selectNew(query)
+      }
     } else if (isDeleting) {
       this._deselect()
-    } else {
+    } else if (!this.isMultiple()) {
       this._select(this._visibleOptionElements[0])
     }
   }

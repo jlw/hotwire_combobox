@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get "prefilled_form", to: "comboboxes#prefilled_form"
   get "async_html", to: "comboboxes#async_html"
   get "render_in", to: "comboboxes#render_in"
+  get "multiple", to: "comboboxes#multiple"
 
   get "movies", to: "movies#index"
   get "movies_html", to: "movies#index_html"
