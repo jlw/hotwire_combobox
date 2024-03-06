@@ -256,6 +256,10 @@ class HotwireComboboxTest < ApplicationSystemTestCase
 
     open_combobox "#state-field"
     assert_selected_option_with text: "Michigan"
+
+    find("[data-hw-combobox-target='clearHandle']").click
+
+    assert_no_selector "li[role=option].hw-combobox__option--selected"
   end
 
   test "combobox in form with prefilled value" do

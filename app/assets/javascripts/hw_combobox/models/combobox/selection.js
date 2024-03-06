@@ -8,9 +8,18 @@ Combobox.Selection = Base => class extends Base {
     this.close()
   }
 
+  clear() {
+    this._actingCombobox.value = ""
+    const option = this._selectedOptionElement
+    if (option) this._commitSelection(option, { selected: false })
+    this.filter({})
+  }
+
   _connectSelection() {
     if (this.hasPrefilledDisplayValue) {
       this._fullQuery = this.prefilledDisplayValue
+    } else {
+      this.clearHandleTarget.classList.add("hw-combobox__handle--inactive")
     }
   }
 
@@ -32,6 +41,10 @@ Combobox.Selection = Base => class extends Base {
     if (selected) {
       this.hiddenFieldTarget.value = option.dataset.value
       option.scrollIntoView({ block: "nearest" })
+      this.clearHandleTarget.classList.remove("hw-combobox__handle--inactive")
+    } else {
+      this.hiddenFieldTarget.value = null
+      this.clearHandleTarget.classList.add("hw-combobox__handle--inactive")
     }
   }
 

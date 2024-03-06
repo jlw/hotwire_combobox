@@ -3,7 +3,7 @@ import { visible } from "hw_combobox/helpers"
 
 Combobox.Options = Base => class extends Base {
   _resetOptions() {
-    this._deselect()
+    this.clear()
     this.hiddenFieldTarget.name = this.originalNameValue
   }
 

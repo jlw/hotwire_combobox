@@ -61,6 +61,13 @@ class HotwireCombobox::Component
   end
 
 
+  def clear_handle_attrs
+    {
+      class: "hw-combobox__handle--clear",
+      data: clear_handle_data
+    }
+  end
+
   def handle_attrs
     {
       class: "hw-combobox__handle",
@@ -245,6 +252,13 @@ class HotwireCombobox::Component
         activedescendant: ""
     end
 
+
+    def clear_handle_data
+      {
+        action: "click->hw-combobox#clear",
+        hw_combobox_target: "clearHandle"
+      }
+    end
 
     def handle_data
       {
