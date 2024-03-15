@@ -16,6 +16,7 @@ Combobox.Selection = Base => class extends Base {
 
     if (this.hasPrefilledDisplayValue) {
       this._fullQuery = this.prefilledDisplayValue
+      this._markQueried()
     }
   }
 
