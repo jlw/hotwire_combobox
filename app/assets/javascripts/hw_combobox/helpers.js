@@ -7,7 +7,7 @@ export function unselected(target) {
 }
 
 export function visible(target) {
-  return !(target.hidden || target.closest("[hidden]"))
+  return !(target.hidden || target.closest("[hidden]") || target.getAttribute('data-custom-hidden'))
 }
 
 export function wrapAroundAccess(array, index) {

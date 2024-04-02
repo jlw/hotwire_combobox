@@ -137,6 +137,10 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  &[data-custom-hidden] {
+    display: none;
+  }
 }
 
 .hw-combobox__option--blank {
