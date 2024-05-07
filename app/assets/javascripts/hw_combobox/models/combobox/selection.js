@@ -24,7 +24,7 @@ Combobox.Selection = Base => class extends Base {
     if (this._shouldTreatAsNewOptionForFiltering(!isDeleteEvent(inputEvent))) {
       this._selectNew()
     } else if (isDeleteEvent(inputEvent)) {
-      this._deselect()
+      this._deselectAndNotify()
     } else if (inputEvent.inputType === "hw:lockInSelection" && this._ensurableOption) {
       this._selectAndAutocompleteMissingPortion(this._ensurableOption)
     } else if (this._isOpen && this._visibleOptionElements[0]) {

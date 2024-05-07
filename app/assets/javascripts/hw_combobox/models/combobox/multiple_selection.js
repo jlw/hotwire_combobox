@@ -7,6 +7,7 @@ Combobox.MultipleSelection = Base => class extends Base {
     this._commitMultipleSelection({ value }, { selected: false })
     element.parentElement.remove()
     this._markInvalid()
+    this._dispatchSelectionEvent({ isNewAndAllowed: false, previousValue })
   }
 
   _connectMultipleSelection() {
