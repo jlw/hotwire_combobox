@@ -52,7 +52,7 @@ Combobox.Selection = Base => class extends Base {
     this._setFieldValue(option.dataset.value)
     this._markSelected(option)
     this._markValid()
-    this._dispatchSelectionEvent({ isNewAndAllowed: false, previousValue: previousValue })
+    this._dispatchSelectionEvent({ isNewAndAllowed: false, previousValue })
 
     option.scrollIntoView({ block: "nearest" })
   }
@@ -64,7 +64,7 @@ Combobox.Selection = Base => class extends Base {
     this._setFieldValue(this._fullQuery)
     this._setFieldName(this.nameWhenNewValue)
     this._markValid()
-    this._dispatchSelectionEvent({ isNewAndAllowed: true, previousValue: previousValue })
+    this._dispatchSelectionEvent({ isNewAndAllowed: true, previousValue })
   }
 
   _deselect() {
@@ -82,7 +82,7 @@ Combobox.Selection = Base => class extends Base {
 
   _deselectAndNotify() {
     const previousValue = this._deselect()
-    this._dispatchSelectionEvent({ isNewAndAllowed: false, previousValue: previousValue })
+    this._dispatchSelectionEvent({ isNewAndAllowed: false, previousValue })
   }
 
   _selectIndex(index) {

@@ -2,6 +2,7 @@ import Combobox from "hw_combobox/models/combobox/base"
 
 Combobox.MultipleSelection = Base => class extends Base {
   removeSelection(event) {
+    const previousValue = this._fieldValue
     const element = event.target
     const value = element.getAttribute("data-value")
     this._commitMultipleSelection({ value }, { selected: false })
