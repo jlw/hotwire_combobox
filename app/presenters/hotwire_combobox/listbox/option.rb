@@ -30,7 +30,7 @@ class HotwireCombobox::Listbox::Option
       {
         id: id,
         role: :option,
-        class: [ "hw-combobox__option", { "hw-combobox__option--blank": blank? } ],
+        class: [ "hw-combobox__option", blank? ? "hw-combobox__option--blank" : nil ].compact,
         data: data
       }
     end
